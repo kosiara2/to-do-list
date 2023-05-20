@@ -103,10 +103,12 @@ const deletingTask = (e) => {
   if (allTasks.length !== 0) {
     error.textContent = "";
   } else error.textContent = "There are no tasks.";
+};
 
-  // if (ulList.classList.contains("li")) {
-  //   error.textContent = "";
-  // } else error.textContent = "There are no tasks.";
+const enterKeyCheck = (e) => {
+  if (e.key == "Enter") {
+    addNewTask();
+  }
 };
 
 //Events
@@ -115,6 +117,7 @@ const DOMEvents = () => {
   document.addEventListener("click", checkClick);
   cancelBtn.addEventListener("click", cancelEditing);
   acceptBtn.addEventListener("click", acceptingNewToDo);
+  inputToDo.addEventListener("keyup", enterKeyCheck);
 };
 
 // content loaded
