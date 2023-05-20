@@ -11,6 +11,8 @@ let popupInfo;
 let popupInput;
 let acceptBtn;
 let cancelBtn;
+let toDoToEdit;
+let newTaskEdit;
 
 //html dom all elements
 const DOMElements = () => {
@@ -70,25 +72,40 @@ const checkClick = (e) => {
   if (e.target.matches(".complete")) {
     e.target.closest("li").classList.toggle("completed");
   } else if (e.target.matches(".edit")) {
-    editingTask();
-  } else if (e.target.matches(".delte")) {
-    console.log("delte");
+    editingTask(e);
+  } else if (e.target.matches(".delete")) {
+    deletingTask(e);
   }
+  console.log(e.target);
 };
 
-const editingTask = () => {
+const editingTask = (e) => {
+  newTaskEdit = e.target.closest("li");
   popup.style.display = "flex";
+  popupInput.value = newTaskEdit.firstChild.textContent;
 };
 
 const cancelEditing = () => {
   popup.style.display = "none";
 };
 
+const acceptingNewToDo = () => {
+  if (popupInput.value !== "") {
+    newTaskEdit.firstChild.textContent = popupInput.value;
+    popup.style.display = "none";
+  } else popupInfo.textContent = "You have to input your task!";
+};
+
+const deletingTask = (e) => {
+  e.target.closest("li").remove("li");
+};
+
 //Events
 const DOMEvents = () => {
   addBtn.addEventListener("click", addNewTask);
-  ulList.addEventListener("click", checkClick);
+  document.addEventListener("click", checkClick);
   cancelBtn.addEventListener("click", cancelEditing);
+  acceptBtn.addEventListener("click", acceptingNewToDo);
 };
 
 // content loaded
