@@ -33,6 +33,7 @@ const main = () => {
   DOMElements();
   DOMEvents();
 };
+
 // adding new task to list
 const addNewTask = () => {
   if (inputToDo.value !== "") {
@@ -76,7 +77,6 @@ const checkClick = (e) => {
   } else if (e.target.matches(".delete")) {
     deletingTask(e);
   }
-  console.log(e.target);
 };
 
 const editingTask = (e) => {
@@ -98,6 +98,15 @@ const acceptingNewToDo = () => {
 
 const deletingTask = (e) => {
   e.target.closest("li").remove("li");
+
+  const allTasks = document.querySelectorAll("li");
+  if (allTasks.length !== 0) {
+    error.textContent = "";
+  } else error.textContent = "There are no tasks.";
+
+  // if (ulList.classList.contains("li")) {
+  //   error.textContent = "";
+  // } else error.textContent = "There are no tasks.";
 };
 
 //Events
